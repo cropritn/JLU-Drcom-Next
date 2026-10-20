@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/JluDrcom.Core/JluDrcom.Core.csproj" />
+    <Project Path="src/JluDrcom.Service/JluDrcom.Service.csproj" />
+    <Project Path="src/JluDrcom.Setup-Gui/JluDrcom.Setup-Gui.csproj" />
+  </Folder>
+</Solution>

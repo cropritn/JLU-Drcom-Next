@@ -1,0 +1,286 @@
+<Window x:Class="JluDrcom.SetupGui.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="JluDrcom 设置"
+        Height="820"
+        Width="720"
+        MinHeight="640"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="{StaticResource PageBackground}"
+        FontFamily="{StaticResource AppFont}"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="28">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="2,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="52" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Width="42" Height="42" CornerRadius="10" Background="{StaticResource Accent}" VerticalAlignment="Top">
+                    <TextBlock Text="J" Foreground="White" FontSize="24" FontWeight="Bold"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="JluDrcom" FontSize="26" FontWeight="SemiBold" />
+                    <TextBlock Text="吉林大学校园网认证服务 · 账号与网络设置"
+                               Foreground="{StaticResource TextSecondary}"
+                               Margin="0,3,0,0" />
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1"
+                    Background="{StaticResource CardBackground}"
+                    BorderBrush="{StaticResource Border}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="18"
+                    Margin="0,0,0,14">
+                <StackPanel>
+                    <TextBlock Text="服务状态" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,10" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="状态" Foreground="{StaticResource TextSecondary}" Margin="0,3,0,3" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="txt_service_state" Text="读取中..." Margin="0,3,0,3" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="在线 IP" Foreground="{StaticResource TextSecondary}" Margin="0,3,0,3" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" x:Name="txt_session_ip" Text="-" Margin="0,3,0,3" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="网卡" Foreground="{StaticResource TextSecondary}" Margin="0,3,0,3" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="txt_adapter" Text="-" TextWrapping="Wrap" Margin="0,3,0,3" />
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="最近错误" Foreground="{StaticResource TextSecondary}" Margin="0,3,0,3" />
+                        <TextBlock Grid.Row="3" Grid.Column="1" x:Name="txt_last_error" Text="-" TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,3,0,3" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="2"
+                    Background="{StaticResource CardBackground}"
+                    BorderBrush="{StaticResource Border}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="18"
+                    Margin="0,0,0,14">
+                <StackPanel>
+                    <TextBlock Text="账号" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,14" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="账号" VerticalAlignment="Center" Margin="0,0,0,10" />
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txt_username" Margin="0,0,0,10" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="密码" VerticalAlignment="Center" />
+                        <StackPanel Grid.Row="1" Grid.Column="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="42" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <PasswordBox x:Name="txt_password" />
+                                    <TextBox x:Name="txt_password_plain" Visibility="Collapsed" />
+                                </Grid>
+                                <Button Grid.Column="1"
+                                        x:Name="btn_toggle_password"
+                                        Content="&#xE7B3;"
+                                        FontFamily="Segoe MDL2 Assets"
+                                        FontSize="14"
+                                        Padding="0"
+                                        Margin="6,0,0,0"
+                                        Style="{StaticResource SecondaryButton}"
+                                        ToolTip="显示 / 隐藏密码"
+                                        Click="TogglePassword_Click" />
+                            </Grid>
+                            <TextBlock x:Name="txt_password_hint"
+                                       Text="已读取保存的密码；留空则保留原密码。"
+                                       Foreground="{StaticResource TextSecondary}"
+                                       FontSize="11"
+                                       Margin="2,4,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="3"
+                    Background="{StaticResource CardBackground}"
+                    BorderBrush="{StaticResource Border}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="18"
+                    Margin="0,0,0,14">
+                <Expander x:Name="expander_advanced"
+                          Header="扩展选项（认证服务器 / 网卡 / MAC / 登录包 / 心跳 / 有线设置）"
+                          IsExpanded="False"
+                          FontFamily="{StaticResource AppFont}"
+                          FontSize="13">
+                    <StackPanel Margin="0,14,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="认证服务器" VerticalAlignment="Center" Margin="0,0,0,10" />
+                            <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="12" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" x:Name="txt_server" />
+                                <TextBox Grid.Column="2" x:Name="txt_port" />
+                            </Grid>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="网卡" VerticalAlignment="Center" Margin="0,0,0,4" />
+                            <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,10">
+                                <ComboBox x:Name="cmb_interface" />
+                                <TextBlock Text="自动模式按到认证服务器的路由选择，避免 VPN/TAP 网卡误选。"
+                                           FontSize="11"
+                                           Foreground="{StaticResource TextSecondary}"
+                                           Margin="2,4,0,0" />
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="MAC 地址" VerticalAlignment="Center" Margin="0,0,0,4" />
+                            <StackPanel Grid.Row="2" Grid.Column="1" Margin="0,0,0,10">
+                                <TextBox x:Name="txt_mac" />
+                                <TextBlock Text="留空自动获取；格式 AA-BB-CC-DD-EE-FF。"
+                                           FontSize="11"
+                                           Foreground="{StaticResource TextSecondary}"
+                                           Margin="2,4,0,0" />
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="登录包模式" VerticalAlignment="Center" Margin="0,0,0,4" />
+                            <StackPanel Grid.Row="3" Grid.Column="1" Margin="0,0,0,10">
+                                <ComboBox x:Name="cmb_mode">
+                                    <ComboBoxItem Content="Complete（推荐，含校验和/MAC）" Tag="complete" />
+                                    <ComboBoxItem Content="Legacy（兼容旧服务器）" Tag="legacy" />
+                                </ComboBox>
+                                <TextBlock Text="Complete 已在吉林大学网络验证；如果认证失败可回退 Legacy。"
+                                           FontSize="11"
+                                           Foreground="{StaticResource TextSecondary}"
+                                           Margin="2,4,0,0" />
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="心跳 / 超时" VerticalAlignment="Center" />
+                            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                                <TextBox x:Name="txt_heartbeat" Width="80" />
+                                <TextBlock Text="秒 /" VerticalAlignment="Center" Margin="8,0" Foreground="{StaticResource TextSecondary}" />
+                                <TextBox x:Name="txt_timeout" Width="80" />
+                                <TextBlock Text="秒" VerticalAlignment="Center" Margin="8,0" Foreground="{StaticResource TextSecondary}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Expander x:Name="expander_wired"
+                                  Header="有线连接选项（仅有线网卡；在此处修改后需自行确认）"
+                                  IsExpanded="False"
+                                  Margin="0,14,0,0"
+                                  FontFamily="{StaticResource AppFont}"
+                                  FontSize="13">
+                            <Grid Margin="0,14,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="有线网卡" VerticalAlignment="Center" Margin="0,0,0,10" />
+                                <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmb_wired_adapter" Margin="0,0,0,10"
+                                          SelectionChanged="WiredAdapter_SelectionChanged" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="IP 地址" VerticalAlignment="Center" Margin="0,0,0,10" />
+                                <TextBox Grid.Row="1" Grid.Column="1" x:Name="txt_wired_ip" Margin="0,0,0,10" />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="子网掩码" VerticalAlignment="Center" Margin="0,0,0,10" />
+                                <TextBox Grid.Row="2" Grid.Column="1" x:Name="txt_wired_mask" Margin="0,0,0,10" />
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="网关地址" VerticalAlignment="Center" Margin="0,0,0,10" />
+                                <TextBox Grid.Row="3" Grid.Column="1" x:Name="txt_wired_gateway" Margin="0,0,0,10" />
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="首选 DNS" VerticalAlignment="Center" Margin="0,0,0,10" />
+                                <TextBox Grid.Row="4" Grid.Column="1" x:Name="txt_wired_dns1" Margin="0,0,0,10" />
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="备用 DNS" VerticalAlignment="Center" Margin="0,0,0,10" />
+                                <TextBox Grid.Row="5" Grid.Column="1" x:Name="txt_wired_dns2" Margin="0,0,0,10" />
+
+                                <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+                                    <Button Content="读取当前值" Style="{StaticResource SecondaryButton}" Width="110" Click="ReadWired_Click" />
+                                    <Button Content="应用有线设置" Style="{StaticResource PrimaryButton}" Width="130" Margin="10,0,0,0" Click="ApplyWired_Click" />
+                                    <Button Content="恢复自动获取" Style="{StaticResource SecondaryButton}" Width="120" Margin="10,0,0,0" Click="EnableDhcp_Click" />
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="7" Grid.Column="1"
+                                           x:Name="txt_wired_status"
+                                           FontSize="11"
+                                           Foreground="{StaticResource TextSecondary}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,8,0,0" />
+                            </Grid>
+                        </Expander>
+                    </StackPanel>
+                </Expander>
+            </Border>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,0,0,10">
+                <Button Content="保存" Style="{StaticResource PrimaryButton}" Width="100" Click="Save_Click" />
+                <Button Content="断开连接" Style="{StaticResource DangerButton}" Width="110" Margin="10,0,0,0" Click="Disconnect_Click" />
+                <Button Content="重新连接" Style="{StaticResource SecondaryButton}" Width="110" Margin="10,0,0,0" Click="Reconnect_Click" />
+                <Button Content="打开日志" Style="{StaticResource SecondaryButton}" Width="100" Margin="10,0,0,0" Click="OpenLogs_Click" />
+                <Button Content="取消" Style="{StaticResource SecondaryButton}" Width="80" Margin="10,0,0,0" Click="Cancel_Click" />
+            </StackPanel>
+
+            <TextBlock Grid.Row="5"
+                       x:Name="txt_save_status"
+                       FontSize="12"
+                       Foreground="#047857"
+                       TextWrapping="Wrap"
+                       Margin="2,0,0,10" />
+        </Grid>
+    </ScrollViewer>
+</Window>
